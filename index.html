@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#900d15"><meta name="color-scheme" content="light"><meta name="color-scheme" content="light"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inventory">
+<link rel="manifest" href="./manifest.json"><link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=2">
+<title>Beirut Bites Inventory</title>
+<style>
+:root{color-scheme:light;--bg:#fef2e6;--card:#fffaf4;--tx:#1a1210;--mu:#7d6a5c;--ac:#900d15;--ok:#485f11;--am:#c46f05;--bd:#ead9c6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px system-ui,sans-serif;padding-bottom:80px}
+header{background:var(--ac);color:#fef2e6;border-bottom:4px solid var(--am);padding:calc(env(safe-area-inset-top) + 12px) 16px 12px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+h1{font-size:18px;margin:0;display:flex;align-items:center;gap:10px}h1 img{width:34px;height:34px;border-radius:8px}#st{font-size:12px;opacity:.9;text-align:right}
+main{padding:12px;max-width:600px;margin:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.grow{flex:1;min-width:0}.nm{font-weight:600}.sub{font-size:13px;color:var(--mu)}
+.low{color:var(--am);font-weight:700}.bought{background:var(--ok)!important}
+input,select,button{font:inherit;padding:10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx)}
+button{cursor:pointer}button.p{background:var(--ac);color:#fef2e6;border:0}
+.row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}.row input{flex:1;min-width:90px}
+.chk{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:2px solid var(--ok);border-radius:6px;background:#fff;padding:0;flex:none;position:relative}.chk:checked{background:var(--ok)}.chk:checked::after{content:"";position:absolute;left:7px;top:2px;width:7px;height:13px;border:solid #fef2e6;border-width:0 3px 3px 0;transform:rotate(45deg)}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;border-radius:0;background:none;padding:14px 4px;color:var(--mu)}nav button.on{color:var(--ac);font-weight:700}
+.q{width:80px}.done{opacity:.5;text-decoration:line-through}h2{font-size:15px;color:var(--mu);margin:14px 0 6px}
+</style></head><body>
+<header><h1><img src="data:image/jpeg;base64,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" alt="">Beirut Bites Inventory</h1><div id="st"></div></header>
+<main id="m"></main>
+<nav><button data-t="ing">Ingredients</button><button data-t="need">Needed <span id="nc"></span></button><button data-t="stock">Stock</button></nav>
+<script>
+const API_URL='https://script.google.com/macros/s/AKfycby7KsOkBawfm4yggyVnoa6PG3-KOLwoPMSJBOYo080HRwFPFx-hWYgt2MbVAjQtYRIp/exec';
+const UNITS=['kg','g','L','ml','pcs','pack'];
+const L=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
+const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let items=L('items')||[],queue=L('queue')||[],tab='ing',syncing=false,lastSync=L('last')||'never';
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>Math.round(n*100)/100;
+const isLow=i=>!!(i&&i.min>0&&i.stock<=i.min);
+function flag(id){const o={type:'upd',id,f:{needed:true},opid:uid()};queue.push(o);applyLocal(o)}
+function op(o){o.opid=uid();const was=isLow(items.find(x=>x.id===o.id));queue.push(o);applyLocal(o);
+ if(o.type==='use'||o.type==='add'||o.type==='upd'){const i=items.find(x=>x.id===o.id);if(i&&!was&&isLow(i)&&!i.needed)flag(i.id)}
+ S('items',items);S('queue',queue);render();sync()}
+function addLow(){const t=items.filter(i=>isLow(i)&&!i.needed);if(!t.length)return;t.forEach(i=>flag(i.id));S('items',items);S('queue',queue);render();sync()}
+const lowBtn=()=>{const n=items.filter(i=>isLow(i)&&!i.needed).length;return n?`<button class="p" style="width:100%;margin-bottom:10px" onclick="addLow()">+ Add all low items (${n})</button>`:''}
+function applyLocal(o){
+ if(o.type==='add'){items.push({id:o.id,name:o.name,unit:o.unit,stock:0,min:o.min||0,needed:false});return}
+ const i=items.find(x=>x.id===o.id);if(!i)return;
+ if(o.type==='del')items=items.filter(x=>x.id!==o.id);
+ else if(o.type==='upd')Object.assign(i,o.f);
+ else if(o.type==='buy'){i.stock=fmt(i.stock+o.qty);i.needed=false}
+ else if(o.type==='use')i.stock=Math.max(0,fmt(i.stock-o.qty));
+}
+async function sync(){
+ if(syncing||!API_URL.startsWith('http'))return render();
+ syncing=true;render();
+ try{
+  while(queue.length){
+   const batch=queue.slice(0,20);
+   const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({ops:batch})});
+   const d=await r.json();const ids=new Set(d.done);
+   queue=queue.filter(o=>!ids.has(o.opid));S('queue',queue);
+   if(!queue.length){items=d.items}
+  }
+  if(!queue.length){const r=await fetch(API_URL);items=(await r.json()).items}
+  lastSync=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});S('last',lastSync);S('items',items);
+ }catch(e){}
+ syncing=false;render();
+}
+function render(){
+ document.getElementById('st').innerHTML=(navigator.onLine?'● Online':'○ Offline')+'<br>'+(syncing?'Syncing…':queue.length?queue.length+' pending':'Synced '+lastSync);
+ const nn=items.filter(i=>i.needed).length;document.getElementById('nc').textContent=nn?'('+nn+')':'';
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
+ const m=document.getElementById('m');
+ if(tab==='ing')m.innerHTML=`<div class="row"><input id="an" placeholder="New ingredient (e.g. Chicken thighs)"><select id="au">${UNITS.map(u=>`<option>${u}</option>`).join('')}</select><input id="am" type="number" inputmode="decimal" placeholder="Low at" style="max-width:90px"><button class="p" onclick="addI()">Add</button></div>`+
+  (items.length?items.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(i=>`<div class="card"><input type="checkbox" class="chk" ${i.needed?'checked':''} onchange="op({type:'upd',id:'${i.id}',f:{needed:this.checked}})"><div class="grow"><div class="nm">${esc(i.name)}</div><div class="sub ${i.stock<=i.min&&i.min>0?'low':''}">${i.stock} ${esc(i.unit)} in stock${i.min?' · low at '+i.min:''}</div></div><button onclick="del('${i.id}')">✕</button></div>`).join(''):'<p class="sub">No ingredients yet. Add your first above. Tick the box to mark it as needed for the next market trip.</p>');
+ else if(tab==='need'){
+  const n=items.filter(i=>i.needed);
+  m.innerHTML=lowBtn()+(n.length?n.map(i=>`<div class="card"><div class="grow"><div class="nm">${esc(i.name)}</div><div class="sub">${i.stock} ${esc(i.unit)} in stock</div></div><input class="q" id="q${i.id}" type="number" inputmode="decimal" placeholder="${esc(i.unit)}"><button class="p bought" onclick="buy('${i.id}')">✓ Bought</button></div>`).join('')+'<p class="sub">Enter the amount purchased, then tap Bought. It updates your stock and removes the item from this list.</p>':'<p class="sub">Nothing needed. Tick items on the Ingredients tab to build your market list.</p>');
+ }else{
+  const lo=items.filter(i=>i.min>0&&i.stock<=i.min),ok=items.filter(i=>!lo.includes(i));
+  const row=i=>`<div class="card"><div class="grow"><div class="nm">${esc(i.name)}</div><div class="sub ${lo.includes(i)?'low':''}">${i.stock} ${esc(i.unit)}${i.min?' · low at '+i.min:''}</div></div><input class="q" id="u${i.id}" type="number" inputmode="decimal" placeholder="used"><button onclick="use('${i.id}')">Use</button></div>`;
+  m.innerHTML=(lo.length?'<h2>⚠ Running low</h2>'+lowBtn()+lo.map(row).join(''):'')+'<h2>All stock</h2>'+(ok.map(row).join('')||'<p class="sub">No other items.</p>');
+ }
+}
+function addI(){const n=an.value.trim();if(!n)return;op({type:'add',id:uid(),name:n,unit:au.value,min:parseFloat(am.value)||0})}
+function del(id){const i=items.find(x=>x.id===id);if(i&&confirm('Delete '+i.name+'?'))op({type:'del',id})}
+function buy(id){const q=parseFloat(document.getElementById('q'+id).value);if(!(q>0))return alert('Enter the quantity bought');op({type:'buy',id,qty:q})}
+function use(id){const q=parseFloat(document.getElementById('u'+id).value);if(!(q>0))return alert('Enter the quantity used');op({type:'use',id,qty:q})}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
+addEventListener('online',sync);addEventListener('offline',render);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();sync();
+</script></body></html>
